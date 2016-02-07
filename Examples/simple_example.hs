@@ -1,5 +1,6 @@
 import Haspec.JSON
 import Haspec.Procedure
+import Haspec.Documentation
 import qualified Text.Blaze.Html.Renderer.Pretty as R
 
 example :: Procedure String String
