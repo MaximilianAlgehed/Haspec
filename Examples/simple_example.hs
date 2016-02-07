@@ -3,12 +3,14 @@ import Haspec.Procedure
 import Haspec.Documentation
 import qualified Text.Blaze.Html.Renderer.Pretty as R
 
-example :: Procedure String String
+cookieType = JSObject [JSString, JSNumber]
+
+example :: Procedure JSONType String
 example = Procedure {
             name = "getUserToken",
             docstring = "Gets the user token from the server",
-            arguments = [("Cookie", "JSONString", "isNotSqlInjection")],
-            returnType = ("JSONString", "isUserToken")
+            arguments = [("Cookie", cookieType, "isNotSqlInjection")],
+            returnType = (JSString, "isUserToken")
           }
 
 main = putStrLn $ R.renderHtml $ getDocumentation $ example
