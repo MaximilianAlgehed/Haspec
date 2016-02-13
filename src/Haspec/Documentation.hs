@@ -12,10 +12,11 @@ import qualified Text.Blaze.Html4.FrameSet.Attributes as A'
 
 mkArgumentsTable :: (Show d, Show p) => Procedure d p -> H.Html
 mkArgumentsTable procedure = H.table H.! A'.border (H.stringValue "1") $
-                                     H.tr $ H.th "Argument name and type" >> H.th "Must satisfy" >>
+                                     H.tr $ H.th "Name" >> H.th "Type" >> H.th "Must satisfy" >>
                                      (foldl (>>) (return ()) $  
                                      map (\(n, d, p) -> H.tr $ do
-                                                                H.td (H.toHtml (n ++ " : " ++ (show d)))
+                                                                H.td (H.toHtml n)
+                                                                H.td (H.toHtml (show d))
                                                                 H.td (H.toHtml (show p))
                                          ) (arguments procedure))
 
