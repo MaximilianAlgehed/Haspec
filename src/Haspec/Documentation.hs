@@ -26,7 +26,7 @@ getDocumentation procedure = H.div H.!
                              $ do
                                 H.head $ H.b $ H.toHtml (name procedure)
                                 H.br
-                                H.b $ "Description:"
+                                H.p $ "Description:"
                                 H.p $ H.toHtml (docstring procedure)
                                 mkArgumentsTable procedure
                                 H.p $ H.toHtml (show (fst (returnType procedure)))
