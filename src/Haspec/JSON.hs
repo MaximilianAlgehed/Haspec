@@ -1,20 +1,19 @@
-
 module Haspec.JSON where
+import Text.PrettyPrint.HughesPJ
 
 data JSONType = JSBool
               | JSString
               | JSNumber
               | JSObject [JSONType]
-              | JSArray
+              | JSArray JSONType
               deriving (Ord, Eq)
 
-showJSONType :: JSONType -> String
-showJSONType JSBool        = "Bool"
-showJSONType JSString      = "String"
-showJSONType JSNumber      = "Number"
-showJSONType JSArray       = "[JSON]"
-showJSONType (JSObject ts) = "{\n"++(foldl (++) "" (map (\s -> "\t"++s++",\n") (take ((length ts) - 1) (map showJSONType ts))))
-                             ++"\t"++(last (map showJSONType ts))++"\n"++"}"
+toDocJSONType :: JSONType -> Doc
+toDocJSONType JSBool        = text "Bool"
+toDocJSONType JSString      = text "String"
+toDocJSONType JSNumber      = text "Number"
+toDocJSONType (JSArray t)   = text "[" <> toDocJSONType t <> text "]"
+toDocJSONType (JSObject ts) = text "{" $+$ nest 4 (vcat (map (toDocJSONType) ts)) $+$ text "}"
 
 instance Show JSONType where
-    show = showJSONType
+    show = show . toDocJSONType
